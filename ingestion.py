@@ -123,27 +123,27 @@ async def index_documents_async(documents: List[Document], batch_size):
         f"📦 VectorStore Indexing: Split into {len(batches)} batches of {batch_size} documents each"
     )
 
-    # Process batches sequentially to avoid session closed errors
-    successful = 0
-    for i, batch in enumerate(batches):
-        batch_num = i + 1
-        try:
-            await vectorstore.aadd_documents(batch)
-            log_success(
-                f"VectorStore Indexing: Successfully added batch {batch_num}/{len(batches)} ({len(batch)} documents)"
-            )
-            successful += 1
-        except Exception as e:
-            log_error(f"VectorStore Indexing: Failed to add batch {batch_num} - {e}")
+    # # Process batches sequentially to avoid session closed errors
+    # successful = 0
+    # for i, batch in enumerate(batches):
+    #     batch_num = i + 1
+    #     try:
+    #         await vectorstore.aadd_documents(batch)
+    #         log_success(
+    #             f"VectorStore Indexing: Successfully added batch {batch_num}/{len(batches)} ({len(batch)} documents)"
+    #         )
+    #         successful += 1
+    #     except Exception as e:
+    #         log_error(f"VectorStore Indexing: Failed to add batch {batch_num} - {e}")
 
-    if successful == len(batches):
-        log_success(
-            f"VectorStore Indexing: All batches processed successfully! ({successful}/{len(batches)})"
-        )
-    else:
-        log_warning(
-            f"VectorStore Indexing: Processed {successful}/{len(batches)} batches successfully"
-        )
+    # if successful == len(batches):
+    #     log_success(
+    #         f"VectorStore Indexing: All batches processed successfully! ({successful}/{len(batches)})"
+    #     )
+    # else:
+    #     log_warning(
+    #         f"VectorStore Indexing: Processed {successful}/{len(batches)} batches successfully"
+    #     )
 
 
 async def main():
