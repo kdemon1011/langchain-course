@@ -56,6 +56,8 @@ if prompt:
 
             st.markdown(answer)
             if sources:
+                # remove duplicates
+                sources = list(set(sources))
                 with st.expander("Sources"):
                     for s in sources:
                         st.markdown(f"- {s}")
